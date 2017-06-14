@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Chore App</string>
+    <string name="name">Name</string>
+    <string name="submit">Submit</string>
+    <string name="delete_item">Delete this?</string>
+    <string name="yes_delete">Yes, delete</string>
+    <string name="cancel">Cancel</string>
+    <string name="loading">Loading...</string>
+</resources>
