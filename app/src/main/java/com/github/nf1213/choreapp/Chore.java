@@ -13,12 +13,12 @@ public class Chore {
     public int id;
 
     public String name;
+    boolean isChecked;
 
     @Ignore
     public Chore(String name) {
         this.name = name;
     }
 
-    public Chore() {
-    }
+    public Chore() { /**/ }
 }

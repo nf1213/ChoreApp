@@ -11,6 +11,7 @@ import javax.inject.Inject;
 
 import io.reactivex.CompletableObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
@@ -45,12 +46,36 @@ public class ChoreListViewModel extends ViewModel implements ChoreComponent.Inje
 
                     @Override
                     public void onComplete() {
-                        Log.v("TAG", "onComplete - deleted event");
+                        Log.v("TAG", "onComplete - deleted chore");
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.v("TAG", "OnError - deleted event: ", e);
+                        Log.v("TAG", "OnError - deleted chore: ", e);
+                    }
+                });
+    }
+
+    public void updateChore(Chore chore) {
+        choreRepository.updateChore(chore)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new CompletableObserver() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        Log.v("TAG", "onComplete - updated chore");
+
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        Log.v("TAG", "OnError - updated chore: ", e);
+
                     }
                 });
     }

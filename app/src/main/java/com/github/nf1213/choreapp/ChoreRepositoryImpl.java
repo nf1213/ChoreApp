@@ -23,7 +23,7 @@ public class ChoreRepositoryImpl implements ChoreRepository{
 
     @Override
     public Completable putChore(Chore chore) {
-        return Completable.fromAction(() -> choreDatabase.choreDao().putChore(chore));
+        return Completable.fromAction(() -> choreDatabase.choreDao().insertChore(chore));
     }
 
     @Override
@@ -41,5 +41,10 @@ public class ChoreRepositoryImpl implements ChoreRepository{
     @Override
     public Completable deleteChore(Chore chore) {
         return Completable.fromAction(() -> choreDatabase.choreDao().deleteChore(chore));
+    }
+
+    @Override
+    public Completable updateChore(Chore chore) {
+        return Completable.fromAction(() -> choreDatabase.choreDao().updateChore(chore));
     }
 }

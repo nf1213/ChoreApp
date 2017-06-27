@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 import static com.github.nf1213.choreapp.AddEditChoreActivity.KEY_CHORE_ID;
 
-public class ChoreListActivity extends LifecycleActivity implements ChoreAdapter.DeleteListener, ChoreAdapter.ClickListener {
+public class ChoreListActivity extends LifecycleActivity implements ChoreAdapter.DeleteListener, ChoreAdapter.ClickListener, ChoreAdapter.CheckListener {
 
     ChoreListViewModel viewModel;
 
@@ -28,7 +28,7 @@ public class ChoreListActivity extends LifecycleActivity implements ChoreAdapter
             startActivity(intent);
         });
 
-        ChoreAdapter adapter = new ChoreAdapter(new ArrayList<>(), this, this);
+        ChoreAdapter adapter = new ChoreAdapter(new ArrayList<>(), this, this, this);
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
@@ -56,5 +56,11 @@ public class ChoreListActivity extends LifecycleActivity implements ChoreAdapter
         Intent intent = new Intent(ChoreListActivity.this, AddEditChoreActivity.class);
         intent.putExtras(bundle);
         startActivity(intent);
+    }
+
+    @Override
+    public void onCheckChanged(Chore chore, boolean isChecked) {
+        chore.isChecked = isChecked;
+        viewModel.updateChore(chore);
     }
 }

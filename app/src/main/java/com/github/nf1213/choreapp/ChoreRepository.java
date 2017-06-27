@@ -19,4 +19,6 @@ public interface ChoreRepository {
     LiveData<Chore> getChore(int id);
 
     Completable deleteChore(Chore chore);
+
+    Completable updateChore(Chore chore);
 }
