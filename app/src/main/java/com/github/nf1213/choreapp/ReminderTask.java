@@ -26,20 +26,25 @@ import static com.google.android.gms.gcm.Task.NETWORK_STATE_ANY;
 public class ReminderTask extends GcmTaskService {
 
     private static final String TAG_NOTIFICATION = "REMINDER_";
-    private static final long ONE_HOUR_IN_SECONDS = 8600;
+    private static final String EXTRA_CHORE_NAME = "extra_chore_name";
 
-    protected static void schedule(Context context, Date sendDate) {
-        long deliveryTime = (sendDate.getTime() - System.currentTimeMillis()) / 1000;
-        Bundle extras = new Bundle();
+    protected static void schedule(Context context, Chore chore) {
+        long deliveryTime = (chore.date.getTime() - System.currentTimeMillis()) / 1000;
+        Bundle bundle = new Bundle();
+        bundle.putString(EXTRA_CHORE_NAME, chore.name);
         Task task = new OneoffTask.Builder()
                 .setService(ReminderTask.class)
-                .setTag(TAG_NOTIFICATION + deliveryTime)
+                .setTag(TAG_NOTIFICATION + chore.id)
                 .setRequiredNetwork(NETWORK_STATE_ANY)
-                .setExecutionWindow(deliveryTime, deliveryTime + ONE_HOUR_IN_SECONDS)
+                .setExecutionWindow(deliveryTime, deliveryTime + 30)
                 .setPersisted(true)
-                .setExtras(extras)
+                .setExtras(bundle)
                 .build();
         GcmNetworkManager.getInstance(context).schedule(task);
+    }
+
+    protected static void cancel(Context context, Chore chore) {
+        GcmNetworkManager.getInstance(context).cancelTask(TAG_NOTIFICATION + chore.id, ReminderTask.class);
     }
 
     @Override
@@ -47,12 +52,13 @@ public class ReminderTask extends GcmTaskService {
         Intent intent = new Intent(this, ChoreListActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        String text = String.format(getString(R.string.notification_message), taskParams.getExtras().getString(EXTRA_CHORE_NAME));
 
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.drawable.ic_add)
                 .setContentTitle(getString(R.string.app_name))
-                .setContentText(getString(R.string.notification_message))
+                .setContentText(text)
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)
                 .setContentIntent(pendingIntent);

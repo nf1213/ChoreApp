@@ -53,7 +53,7 @@ public class AddEditChoreActivity extends LifecycleActivity {
                     .subscribe(new CompletableObserver() {
                         @Override
                         public void onSubscribe(Disposable d) {
-                            ReminderTask.schedule(AddEditChoreActivity.this, mChore.date);
+                            ReminderTask.schedule(AddEditChoreActivity.this, mChore);
                         }
 
                         @Override

@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.Completable;
 import io.reactivex.CompletableObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
@@ -56,27 +57,7 @@ public class ChoreListViewModel extends ViewModel implements ChoreComponent.Inje
                 });
     }
 
-    public void updateChore(Chore chore) {
-        choreRepository.updateChore(chore)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new CompletableObserver() {
-                    @Override
-                    public void onSubscribe(@NonNull Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-                        Log.v("TAG", "onComplete - updated chore");
-
-                    }
-
-                    @Override
-                    public void onError(@NonNull Throwable e) {
-                        Log.v("TAG", "OnError - updated chore: ", e);
-
-                    }
-                });
+    public Completable updateChore(Chore chore) {
+        return choreRepository.updateChore(chore);
     }
 }

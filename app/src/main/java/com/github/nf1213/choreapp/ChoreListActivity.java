@@ -11,6 +11,12 @@ import android.util.Log;
 
 import java.util.ArrayList;
 
+import io.reactivex.CompletableObserver;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+
 import static com.github.nf1213.choreapp.AddEditChoreActivity.KEY_CHORE_ID;
 
 public class ChoreListActivity extends LifecycleActivity implements ChoreAdapter.DeleteListener, ChoreAdapter.ClickListener, ChoreAdapter.CheckListener {
@@ -61,6 +67,27 @@ public class ChoreListActivity extends LifecycleActivity implements ChoreAdapter
     @Override
     public void onCheckChanged(Chore chore, boolean isChecked) {
         chore.isChecked = isChecked;
-        viewModel.updateChore(chore);
+        viewModel.updateChore(chore).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new CompletableObserver() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        Log.v("TAG", "onComplete - updated chore");
+                        if (chore.isChecked) {
+                            ReminderTask.cancel(ChoreListActivity.this, chore);
+                        }
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        Log.v("TAG", "OnError - updated chore: ", e);
+
+                    }
+                });
     }
 }
