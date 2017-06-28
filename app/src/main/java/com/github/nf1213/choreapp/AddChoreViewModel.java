@@ -4,8 +4,11 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
 import android.util.Log;
 
+import java.util.Calendar;
+
 import javax.inject.Inject;
 
+import io.reactivex.Completable;
 import io.reactivex.CompletableObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -19,25 +22,11 @@ public class AddChoreViewModel extends ViewModel implements ChoreComponent.Injec
     @Inject
     ChoreRepository choreRepository;
 
-    public void putChore(Chore chore) {
-        choreRepository.putChore(chore).observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribe(new CompletableObserver() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-                        Log.v("TAG", "onComplete - successfully added event");
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Log.v("TAG", "onError - add:", e);
-                    }
-                });
+    public Completable addChore(Chore chore) {
+        Calendar c = Calendar.getInstance();
+        c.add(Calendar.MINUTE, 1);
+        chore.date = c.getTime();
+        return choreRepository.addChore(chore);
     }
 
     public LiveData<Chore> getChore(int id) {

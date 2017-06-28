@@ -12,7 +12,7 @@ import io.reactivex.Completable;
 
 public interface ChoreRepository {
 
-    Completable putChore(Chore chore);
+    Completable addChore(Chore chore);
 
     LiveData<List<Chore>> getChores();
 

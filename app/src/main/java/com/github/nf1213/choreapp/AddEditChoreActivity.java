@@ -4,8 +4,14 @@ import android.arch.lifecycle.LifecycleActivity;
 import android.arch.lifecycle.ViewModelProviders;
 import android.support.design.widget.TextInputLayout;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+
+import io.reactivex.CompletableObserver;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class AddEditChoreActivity extends LifecycleActivity {
 
@@ -42,7 +48,24 @@ public class AddEditChoreActivity extends LifecycleActivity {
 
         mSubmit.setOnClickListener(v -> {
             mChore.name = mEditText.getEditText().getText().toString();
-            viewModel.putChore(mChore);
+            viewModel.addChore(mChore).observeOn(AndroidSchedulers.mainThread())
+                    .subscribeOn(Schedulers.io())
+                    .subscribe(new CompletableObserver() {
+                        @Override
+                        public void onSubscribe(Disposable d) {
+                            ReminderTask.schedule(AddEditChoreActivity.this, mChore.date);
+                        }
+
+                        @Override
+                        public void onComplete() {
+                            Log.v("TAG", "onComplete - successfully added event");
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            Log.v("TAG", "onError - add:", e);
+                        }
+                    });
             finish();
         });
     }
