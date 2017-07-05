@@ -4,6 +4,7 @@ import android.graphics.Paint;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
@@ -13,6 +14,7 @@ import android.widget.TextView;
  */
 class ChoreViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener, View.OnClickListener, CompoundButton.OnCheckedChangeListener {
     private TextView mTextView;
+    private Button mEdit;
     private CheckBox mCheckBox;
     private ChoreAdapter.DeleteListener mDeleteListener;
     private ChoreAdapter.ClickListener mClickListener;
@@ -22,12 +24,13 @@ class ChoreViewHolder extends RecyclerView.ViewHolder implements View.OnLongClic
     public ChoreViewHolder(View itemView, ChoreAdapter.ClickListener clickListener, ChoreAdapter.DeleteListener deleteListener, ChoreAdapter.CheckListener checkListener) {
         super(itemView);
         mTextView = (TextView) itemView.findViewById(R.id.name);
+        mEdit = (Button) itemView.findViewById(R.id.edit);
         mCheckBox = (CheckBox) itemView.findViewById(R.id.checkbox);
         mDeleteListener = deleteListener;
         mClickListener = clickListener;
         mCheckListener = checkListener;
         mTextView.setOnLongClickListener(ChoreViewHolder.this);
-        mTextView.setOnClickListener(this);
+        mEdit.setOnClickListener(this);
         mCheckBox.setOnCheckedChangeListener(this);
     }
 
