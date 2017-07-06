@@ -31,6 +31,7 @@ class ChoreViewHolder extends RecyclerView.ViewHolder implements View.OnLongClic
         mCheckListener = checkListener;
         mTextView.setOnLongClickListener(ChoreViewHolder.this);
         mEdit.setOnClickListener(this);
+        mTextView.setOnClickListener(this);
         mCheckBox.setOnCheckedChangeListener(this);
     }
 
@@ -62,7 +63,11 @@ class ChoreViewHolder extends RecyclerView.ViewHolder implements View.OnLongClic
 
     @Override
     public void onClick(View v) {
-        mClickListener.onClick(mChore.id);
+        if (v.getId() == R.id.edit){
+            mClickListener.onClick(mChore.id);
+        } else if (v.getId() == R.id.name) {
+            mCheckBox.toggle();
+        }
     }
 
     @Override
