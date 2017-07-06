@@ -7,6 +7,8 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by Nicole Felch on 6/7/17.
@@ -21,19 +23,30 @@ public class ChoreModule {
     }
 
     @Provides
-    Context applicationContext() {
+    public Context applicationContext() {
         return application;
     }
 
     @Provides
     @Singleton
-    ChoreRepository providesEventRepository(ChoreDatabase choreDatabase) {
+    public ChoreRepository providesEventRepository(ChoreDatabase choreDatabase) {
         return new ChoreRepositoryImpl(choreDatabase);
     }
 
     @Provides
     @Singleton
-    ChoreDatabase providesEventDatabase(Context context) {
+    public ChoreDatabase providesEventDatabase(Context context) {
         return Room.databaseBuilder(context.getApplicationContext(), ChoreDatabase.class, "chore_db").build();
     }
+
+    @Provides
+    @Singleton
+    public RestServiceInterface providesRestService() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://10.0.2.2:3000")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        return retrofit.create(RestServiceInterface.class);
+    }
+
 }

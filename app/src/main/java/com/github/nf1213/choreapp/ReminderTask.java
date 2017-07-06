@@ -15,8 +15,6 @@ import com.google.android.gms.gcm.OneoffTask;
 import com.google.android.gms.gcm.Task;
 import com.google.android.gms.gcm.TaskParams;
 
-import java.util.Date;
-
 import static com.google.android.gms.gcm.GcmNetworkManager.RESULT_SUCCESS;
 import static com.google.android.gms.gcm.Task.NETWORK_STATE_ANY;
 
