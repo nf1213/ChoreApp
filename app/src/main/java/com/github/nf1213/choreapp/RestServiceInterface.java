@@ -10,6 +10,6 @@ import retrofit2.http.Query;
  * Created by Nicole Felch on 6/28/17.
  */
 public interface RestServiceInterface {
-    @GET("search")
-    Call<List<ApplianceSearchResult>> searchAppliances(@Query("q") String query);
+    @GET("appliances")
+    Call<List<ApplianceSearchResult>> searchAppliances(@Query("search") String query);
 }
