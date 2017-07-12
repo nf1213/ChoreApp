@@ -1,4 +1,4 @@
-package com.github.nf1213.choreapp;
+package com.github.nf1213.choreapp.datastorage;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;

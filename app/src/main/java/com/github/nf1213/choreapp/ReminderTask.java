@@ -9,13 +9,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 
+import com.github.nf1213.choreapp.datastorage.Chore;
+import com.github.nf1213.choreapp.ui.MainActivity;
 import com.google.android.gms.gcm.GcmNetworkManager;
 import com.google.android.gms.gcm.GcmTaskService;
 import com.google.android.gms.gcm.OneoffTask;
 import com.google.android.gms.gcm.Task;
 import com.google.android.gms.gcm.TaskParams;
-
-import java.util.Date;
 
 import static com.google.android.gms.gcm.GcmNetworkManager.RESULT_SUCCESS;
 import static com.google.android.gms.gcm.Task.NETWORK_STATE_ANY;
@@ -28,7 +28,7 @@ public class ReminderTask extends GcmTaskService {
     private static final String TAG_NOTIFICATION = "REMINDER_";
     private static final String EXTRA_CHORE_NAME = "extra_chore_name";
 
-    protected static void schedule(Context context, Chore chore) {
+    public static void schedule(Context context, Chore chore) {
         long deliveryTime = (chore.date.getTime() - System.currentTimeMillis()) / 1000;
         Bundle bundle = new Bundle();
         bundle.putString(EXTRA_CHORE_NAME, chore.name);
@@ -43,13 +43,13 @@ public class ReminderTask extends GcmTaskService {
         GcmNetworkManager.getInstance(context).schedule(task);
     }
 
-    protected static void cancel(Context context, Chore chore) {
+    public static void cancel(Context context, Chore chore) {
         GcmNetworkManager.getInstance(context).cancelTask(TAG_NOTIFICATION + chore.id, ReminderTask.class);
     }
 
     @Override
     public int onRunTask(TaskParams taskParams) {
-        Intent intent = new Intent(this, ChoreListActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         String text = String.format(getString(R.string.notification_message), taskParams.getExtras().getString(EXTRA_CHORE_NAME));

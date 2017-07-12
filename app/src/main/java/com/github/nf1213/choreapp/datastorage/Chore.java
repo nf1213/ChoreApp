@@ -1,4 +1,4 @@
-package com.github.nf1213.choreapp;
+package com.github.nf1213.choreapp.datastorage;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
@@ -6,8 +6,6 @@ import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 
 import java.util.Date;
-
-import static java.text.DateFormat.DATE_FIELD;
 
 /**
  * Created by Nicole Felch on 6/7/17.

@@ -1,5 +1,9 @@
 package com.github.nf1213.choreapp;
 
+import com.github.nf1213.choreapp.ui.AddChoreViewModel;
+import com.github.nf1213.choreapp.ui.ChoreListViewModel;
+import com.github.nf1213.choreapp.ui.ChoreModule;
+
 import javax.inject.Singleton;
 
 import dagger.Component;

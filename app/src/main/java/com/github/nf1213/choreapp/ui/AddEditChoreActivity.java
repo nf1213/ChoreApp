@@ -1,4 +1,4 @@
-package com.github.nf1213.choreapp;
+package com.github.nf1213.choreapp.ui;
 
 import android.arch.lifecycle.LifecycleActivity;
 import android.arch.lifecycle.ViewModelProviders;
@@ -7,6 +7,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+
+import com.github.nf1213.choreapp.ChoreApplication;
+import com.github.nf1213.choreapp.ChoreFactory;
+import com.github.nf1213.choreapp.R;
+import com.github.nf1213.choreapp.ReminderTask;
+import com.github.nf1213.choreapp.datastorage.Chore;
 
 import io.reactivex.CompletableObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
