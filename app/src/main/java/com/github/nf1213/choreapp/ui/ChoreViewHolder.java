@@ -1,4 +1,4 @@
-package com.github.nf1213.choreapp;
+package com.github.nf1213.choreapp.ui;
 
 import android.graphics.Paint;
 import android.support.v7.app.AlertDialog;
@@ -8,6 +8,9 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
+
+import com.github.nf1213.choreapp.R;
+import com.github.nf1213.choreapp.datastorage.Chore;
 
 /**
  * Created by Nicole Felch on 6/24/17.

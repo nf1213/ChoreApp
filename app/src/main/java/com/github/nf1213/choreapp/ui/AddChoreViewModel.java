@@ -1,18 +1,17 @@
-package com.github.nf1213.choreapp;
+package com.github.nf1213.choreapp.ui;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
-import android.util.Log;
+
+import com.github.nf1213.choreapp.ChoreComponent;
+import com.github.nf1213.choreapp.datastorage.Chore;
+import com.github.nf1213.choreapp.datastorage.ChoreRepository;
 
 import java.util.Calendar;
 
 import javax.inject.Inject;
 
 import io.reactivex.Completable;
-import io.reactivex.CompletableObserver;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by Nicole Felch on 6/7/17.

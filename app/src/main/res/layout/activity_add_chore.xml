@@ -4,16 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.github.nf1213.choreapp.AddEditChoreActivity"
+    tools:context="com.github.nf1213.choreapp.ui.AddEditChoreActivity"
     android:padding="12dp">
-
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent">
+        app:layout_constraintLeft_toLeftOf="parent"
+        tools:layout_editor_absoluteY="0dp">
 
         <EditText
             android:layout_width="match_parent"

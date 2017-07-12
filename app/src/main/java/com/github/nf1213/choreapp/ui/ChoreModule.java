@@ -1,7 +1,13 @@
-package com.github.nf1213.choreapp;
+package com.github.nf1213.choreapp.ui;
 
 import android.arch.persistence.room.Room;
 import android.content.Context;
+
+import com.github.nf1213.choreapp.ChoreApplication;
+import com.github.nf1213.choreapp.datastorage.ChoreDatabase;
+import com.github.nf1213.choreapp.datastorage.ChoreRepository;
+import com.github.nf1213.choreapp.datastorage.ChoreRepositoryImpl;
+import com.github.nf1213.choreapp.networking.RestServiceInterface;
 
 import javax.inject.Singleton;
 

@@ -1,9 +1,13 @@
-package com.github.nf1213.choreapp;
+package com.github.nf1213.choreapp.ui;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.util.Log;
+
+import com.github.nf1213.choreapp.ChoreComponent;
+import com.github.nf1213.choreapp.datastorage.Chore;
+import com.github.nf1213.choreapp.datastorage.ChoreRepository;
 
 import java.util.List;
 

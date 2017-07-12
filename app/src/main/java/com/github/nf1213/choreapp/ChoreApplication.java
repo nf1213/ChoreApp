@@ -2,6 +2,8 @@ package com.github.nf1213.choreapp;
 
 import android.app.Application;
 
+import com.github.nf1213.choreapp.ui.ChoreModule;
+
 /**
  * Created by Nicole Felch on 6/7/17.
  */

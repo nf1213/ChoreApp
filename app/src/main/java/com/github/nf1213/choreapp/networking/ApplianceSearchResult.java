@@ -1,4 +1,4 @@
-package com.github.nf1213.choreapp;
+package com.github.nf1213.choreapp.networking;
 
 /**
  * Created by Nicole Felch on 6/28/17.
