@@ -1,4 +1,4 @@
-package com.github.nf1213.choreapp.ui;
+package com.github.nf1213.choreapp.ui.chore;
 
 import android.arch.lifecycle.LifecycleFragment;
 import android.arch.lifecycle.ViewModelProviders;
@@ -20,6 +20,7 @@ import com.github.nf1213.choreapp.ChoreFactory;
 import com.github.nf1213.choreapp.R;
 import com.github.nf1213.choreapp.ReminderTask;
 import com.github.nf1213.choreapp.datastorage.Chore;
+import com.github.nf1213.choreapp.ui.appliance.ApplianceSearchFragment;
 
 import java.util.ArrayList;
 
@@ -28,8 +29,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-
-import static com.github.nf1213.choreapp.ui.AddEditChoreActivity.KEY_CHORE_ID;
 
 /**
  * Created by Nicole Felch on 7/11/17.
@@ -57,12 +56,12 @@ public class ChoreListFragment extends LifecycleFragment implements ChoreAdapter
 
         viewModel = ViewModelProviders.of(this, new ChoreFactory((ChoreApplication) getActivity().getApplication())).get(ChoreListViewModel.class);
 
-        viewModel.getChores().observe(this, adapter::setItems);
-
         viewModel.getChores().observe(this, chores -> {
             Log.d("TAG", "Events Changed:" + chores);
             adapter.setItems(chores);
         });
+
+        getActivity().setTitle(getString(R.string.app_name));
 
         return rootView;
     }
@@ -77,7 +76,7 @@ public class ChoreListFragment extends LifecycleFragment implements ChoreAdapter
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.search) {
             getFragmentManager().beginTransaction()
-                    .replace(R.id.content, new SearchFragment())
+                    .replace(R.id.content, new ApplianceSearchFragment())
                     .addToBackStack(null)
                     .commit();
             return true;
@@ -93,7 +92,7 @@ public class ChoreListFragment extends LifecycleFragment implements ChoreAdapter
     @Override
     public void onClick(int choreId) {
         Bundle bundle = new Bundle();
-        bundle.putInt(KEY_CHORE_ID, choreId);
+        bundle.putInt(AddEditChoreActivity.KEY_CHORE_ID, choreId);
         Intent intent = new Intent(getActivity(), AddEditChoreActivity.class);
         intent.putExtras(bundle);
         startActivity(intent);

@@ -1,4 +1,4 @@
-package com.github.nf1213.choreapp.ui;
+package com.github.nf1213.choreapp.ui.chore;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;

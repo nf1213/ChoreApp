@@ -1,4 +1,4 @@
-package com.github.nf1213.choreapp.ui;
+package com.github.nf1213.choreapp.ui.chore;
 
 import android.arch.persistence.room.Room;
 import android.content.Context;
@@ -35,13 +35,13 @@ public class ChoreModule {
 
     @Provides
     @Singleton
-    public ChoreRepository providesEventRepository(ChoreDatabase choreDatabase) {
+    public ChoreRepository providesChoreRepository(ChoreDatabase choreDatabase) {
         return new ChoreRepositoryImpl(choreDatabase);
     }
 
     @Provides
     @Singleton
-    public ChoreDatabase providesEventDatabase(Context context) {
+    public ChoreDatabase providesChoreDatabase(Context context) {
         return Room.databaseBuilder(context.getApplicationContext(), ChoreDatabase.class, "chore_db").build();
     }
 

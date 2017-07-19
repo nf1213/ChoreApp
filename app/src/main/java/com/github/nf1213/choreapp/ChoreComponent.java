@@ -1,8 +1,10 @@
 package com.github.nf1213.choreapp;
 
-import com.github.nf1213.choreapp.ui.AddChoreViewModel;
-import com.github.nf1213.choreapp.ui.ChoreListViewModel;
-import com.github.nf1213.choreapp.ui.ChoreModule;
+import com.github.nf1213.choreapp.ui.appliance.ApplianceDetailsViewModel;
+import com.github.nf1213.choreapp.ui.chore.AddChoreViewModel;
+import com.github.nf1213.choreapp.ui.chore.ChoreListViewModel;
+import com.github.nf1213.choreapp.ui.chore.ChoreModule;
+import com.github.nf1213.choreapp.ui.appliance.ApplianceSearchViewModel;
 
 import javax.inject.Singleton;
 
@@ -19,6 +21,10 @@ public interface ChoreComponent {
     void inject(AddChoreViewModel addChoreViewModel);
 
     void inject(ChoreListViewModel choreListViewModel);
+
+    void inject(ApplianceSearchViewModel applianceSearchViewModel);
+
+    void inject(ApplianceDetailsViewModel applianceDetailsViewModel);
 
     interface Injectable {
         void inject(ChoreComponent choreComponent);

@@ -1,4 +1,4 @@
-package com.github.nf1213.choreapp.ui;
+package com.github.nf1213.choreapp.ui.chore;
 
 import android.arch.lifecycle.LifecycleActivity;
 import android.arch.lifecycle.ViewModelProviders;

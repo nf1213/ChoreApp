@@ -7,6 +7,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 
 import com.github.nf1213.choreapp.R;
+import com.github.nf1213.choreapp.ui.chore.AddEditChoreActivity;
+import com.github.nf1213.choreapp.ui.chore.ChoreListFragment;
 
 public class MainActivity extends AppCompatActivity {
 
