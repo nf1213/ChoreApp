@@ -2,9 +2,8 @@ package com.github.nf1213.choreapp.ui.chore;
 
 import android.arch.lifecycle.LifecycleActivity;
 import android.arch.lifecycle.ViewModelProviders;
-import android.support.design.widget.TextInputLayout;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.design.widget.TextInputLayout;
 import android.view.View;
 import android.widget.Button;
 
@@ -24,18 +23,18 @@ public class AddEditChoreActivity extends LifecycleActivity {
     public static final String KEY_CHORE_ID = "chore_id";
 
     private AddChoreViewModel viewModel;
-    private Chore mChore;
-    private TextInputLayout mEditText;
-    private Button mSubmit;
-    private View mProgress;
+    private Chore chore;
+    private TextInputLayout choreNameView;
+    private Button submitButton;
+    private View progressView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_chore);
-        mSubmit = (Button) findViewById(R.id.submit);
-        mEditText = (TextInputLayout) findViewById(R.id.name);
-        mProgress = findViewById(R.id.loading);
+        submitButton = (Button) findViewById(R.id.add_chore_submit);
+        choreNameView = (TextInputLayout) findViewById(R.id.add_chore_name);
+        progressView = findViewById(R.id.add_chore_loading);
 
         ChoreApplication application = (ChoreApplication) getApplication();
         viewModel = ViewModelProviders.of(this, new ChoreFactory(application)).get(AddChoreViewModel.class);
@@ -45,40 +44,36 @@ public class AddEditChoreActivity extends LifecycleActivity {
             enableUi(false);
             viewModel.getChore(id).observe(this, chore -> {
                 enableUi(true);
-                mChore = chore;
-                mEditText.getEditText().setText(mChore.name);
+                this.chore = chore;
+                choreNameView.getEditText().setText(chore.name);
             });
         } else {
-            mChore = new Chore();
+            chore = new Chore();
         }
 
-        mSubmit.setOnClickListener(v -> {
-            mChore.name = mEditText.getEditText().getText().toString();
-            viewModel.addChore(mChore).observeOn(AndroidSchedulers.mainThread())
+        submitButton.setOnClickListener(v -> {
+            chore.name = choreNameView.getEditText().getText().toString();
+            viewModel.addChore(chore).observeOn(AndroidSchedulers.mainThread())
                     .subscribeOn(Schedulers.io())
                     .subscribe(new CompletableObserver() {
                         @Override
                         public void onSubscribe(Disposable d) {
-                            ReminderTask.schedule(AddEditChoreActivity.this, mChore);
+                            ReminderTask.schedule(AddEditChoreActivity.this, chore);
                         }
 
                         @Override
-                        public void onComplete() {
-                            Log.v("TAG", "onComplete - successfully added event");
-                        }
+                        public void onComplete() { /* empty */ }
 
                         @Override
-                        public void onError(Throwable e) {
-                            Log.v("TAG", "onError - add:", e);
-                        }
+                        public void onError(Throwable e) { /* empty */ }
                     });
             finish();
         });
     }
 
     private void enableUi(boolean b) {
-        mEditText.setVisibility(b ? View.VISIBLE : View.GONE);
-        mSubmit.setVisibility(b ? View.VISIBLE : View.GONE);
-        mProgress.setVisibility(!b ? View.VISIBLE : View.GONE);
+        choreNameView.setVisibility(b ? View.VISIBLE : View.GONE);
+        submitButton.setVisibility(b ? View.VISIBLE : View.GONE);
+        progressView.setVisibility(!b ? View.VISIBLE : View.GONE);
     }
 }

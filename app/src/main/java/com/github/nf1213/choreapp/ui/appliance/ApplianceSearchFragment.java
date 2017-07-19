@@ -26,25 +26,23 @@ import com.github.nf1213.choreapp.networking.ApplianceSearchResult;
 /**
  * Created by Nicole Felch on 7/11/17.
  */
-
-public class ApplianceSearchFragment extends LifecycleFragment implements View.OnClickListener, android.widget.TextView.OnEditorActionListener, ApplianceSearchAdapter.OnItemClickListener {
+public class ApplianceSearchFragment extends LifecycleFragment implements android.widget.TextView.OnEditorActionListener, ApplianceSearchAdapter.OnItemClickListener {
 
     private ApplianceSearchViewModel viewModel;
-    private String mKeyword;
-    private EditText mSearchInput;
+    private String searchKeyword;
+    private EditText searchInputView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        RecyclerView recyclerView = (RecyclerView) inflater.inflate(R.layout.search_fragment, container, false);
-
-        ApplianceSearchAdapter adapter = new ApplianceSearchAdapter(this);
+        RecyclerView recyclerView = (RecyclerView) inflater.inflate(R.layout.recycler_view, container, false);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
+        ApplianceSearchAdapter adapter = new ApplianceSearchAdapter(this);
         recyclerView.setAdapter(adapter);
 
         viewModel = ViewModelProviders.of(this, new ChoreFactory((ChoreApplication) getActivity().getApplication())).get(ApplianceSearchViewModel.class);
-        viewModel.getAppliances().observe(this, adapter::setData);
+        viewModel.applianceSearch("").observe(this, adapter::setData);
         return recyclerView;
     }
 
@@ -58,42 +56,32 @@ public class ApplianceSearchFragment extends LifecycleFragment implements View.O
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         menu.clear();
         inflater.inflate(R.menu.search_fragment, menu);
-
         MenuItem searchBarItem = menu.findItem(R.id.search_bar_item);
         View view = searchBarItem.getActionView();
+        searchInputView = (EditText) view.findViewById(R.id.search_input);
+        View btn_clear = view.findViewById(R.id.btn_clear);
 
-        mSearchInput = (EditText) view.findViewById(R.id.search_input);
-
-        final View btn_clear = view.findViewById(R.id.btn_clear);
-        btn_clear.setOnClickListener(this);
-        mSearchInput.setTag(btn_clear);
-        mSearchInput.setHint(R.string.search);
-        mSearchInput.setOnEditorActionListener(this);
-        mSearchInput.addTextChangedListener(mSearchInputWatcher);
-    }
-
-    @Override
-    public void onClick(View v) {
-        mSearchInput.setText("");
-        viewModel.applianceSearch("");
+        btn_clear.setOnClickListener(v -> {
+            searchInputView.setText("");
+            viewModel.applianceSearch("");
+        });
+        searchInputView.setHint(R.string.search);
+        searchInputView.setOnEditorActionListener(this);
+        searchInputView.addTextChangedListener(mSearchInputWatcher);
     }
 
     private TextWatcher mSearchInputWatcher = new TextWatcher() {
         @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-        }
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) { /* empty */ }
 
         @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-        }
+        public void onTextChanged(CharSequence s, int start, int before, int count) { /* empty */ }
 
         @Override
         public void afterTextChanged(Editable s) {
-            mKeyword = mSearchInput.getText().toString().trim();
-            if (mKeyword.length() >= 2) {
-                viewModel.applianceSearch(mKeyword);
+            searchKeyword = searchInputView.getText().toString().trim();
+            if (searchKeyword.length() >= 2) {
+                viewModel.applianceSearch(searchKeyword);
             }
         }
     };
@@ -101,7 +89,7 @@ public class ApplianceSearchFragment extends LifecycleFragment implements View.O
     @Override
     public boolean onEditorAction(android.widget.TextView v, int actionId, KeyEvent event) {
         if (actionId == EditorInfo.IME_ACTION_SEARCH || actionId == EditorInfo.IME_ACTION_DONE) {
-            viewModel.applianceSearch(mKeyword);
+            viewModel.applianceSearch(searchKeyword);
             return true;
         }
         return false;

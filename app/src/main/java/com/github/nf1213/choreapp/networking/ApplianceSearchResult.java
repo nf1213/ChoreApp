@@ -5,7 +5,6 @@ package com.github.nf1213.choreapp.networking;
  */
 
 public class ApplianceSearchResult {
-
     public int id;
     public String name;
 }

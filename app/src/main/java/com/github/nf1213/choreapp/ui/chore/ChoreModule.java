@@ -54,5 +54,4 @@ public class ChoreModule {
                 .build();
         return retrofit.create(RestServiceInterface.class);
     }
-
 }

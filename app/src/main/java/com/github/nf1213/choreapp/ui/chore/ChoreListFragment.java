@@ -33,7 +33,6 @@ import io.reactivex.schedulers.Schedulers;
 /**
  * Created by Nicole Felch on 7/11/17.
  */
-
 public class ChoreListFragment extends LifecycleFragment implements ChoreAdapter.DeleteListener, ChoreAdapter.ClickListener, ChoreAdapter.CheckListener{
     ChoreListViewModel viewModel;
 
@@ -45,24 +44,20 @@ public class ChoreListFragment extends LifecycleFragment implements ChoreAdapter
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
-        View rootView = inflater.inflate(R.layout.chore_fragment, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_chore_list, container, false);
+        getActivity().setTitle(getString(R.string.app_name));
 
         ChoreAdapter adapter = new ChoreAdapter(new ArrayList<>(), this, this, this);
-        RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler);
+        RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.chore_recycler);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
 
         viewModel = ViewModelProviders.of(this, new ChoreFactory((ChoreApplication) getActivity().getApplication())).get(ChoreListViewModel.class);
-
         viewModel.getChores().observe(this, chores -> {
             Log.d("TAG", "Events Changed:" + chores);
             adapter.setItems(chores);
         });
-
-        getActivity().setTitle(getString(R.string.app_name));
-
         return rootView;
     }
 
@@ -105,21 +100,17 @@ public class ChoreListFragment extends LifecycleFragment implements ChoreAdapter
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new CompletableObserver() {
                     @Override
-                    public void onSubscribe(@NonNull Disposable d) {
-                    }
+                    public void onSubscribe(@NonNull Disposable d) { /* empty */}
 
                     @Override
                     public void onComplete() {
-                        Log.v("TAG", "onComplete - updated chore");
                         if (chore.isChecked) {
                             ReminderTask.cancel(getActivity(), chore);
                         }
                     }
 
                     @Override
-                    public void onError(@NonNull Throwable e) {
-                        Log.v("TAG", "OnError - updated chore: ", e);
-                    }
+                    public void onError(@NonNull Throwable e) { /* empty */ }
                 });
     }
 }

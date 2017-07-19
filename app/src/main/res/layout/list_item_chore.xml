@@ -8,7 +8,7 @@
     android:layout_marginRight="10dp">
 
     <CheckBox
-        android:id="@+id/checkbox"
+        android:id="@+id/chore_checkbox"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:scaleX="1.5"
@@ -17,7 +17,7 @@
         android:textSize="20sp" />
 
     <TextView
-        android:id="@+id/name"
+        android:id="@+id/chore_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingRight="5dp"
@@ -29,7 +29,7 @@
         android:layout_weight="1" />
 
     <Button
-        android:id="@+id/edit"
+        android:id="@+id/chore_edit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/colorAccent"

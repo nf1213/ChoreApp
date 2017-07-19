@@ -15,17 +15,16 @@ import java.util.List;
 /**
  * Created by Nicole Felch on 7/19/17.
  */
-
 class ApplianceChoreAdapter extends RecyclerView.Adapter {
 
-    private List<ApplianceChore> data;
+    private List<ApplianceChore> choreList;
 
     ApplianceChoreAdapter() {
-        this.data = new ArrayList<>();
+        this.choreList = new ArrayList<>();
     }
 
     public void setData(List<ApplianceChore> data) {
-        this.data = data;
+        this.choreList = data;
         notifyDataSetChanged();
     }
 
@@ -38,27 +37,27 @@ class ApplianceChoreAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        ((ApplianceChoreViewHolder) holder).bind(data.get(position));
+        ((ApplianceChoreViewHolder) holder).bind(choreList.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return data.size();
+        return choreList.size();
     }
 
     private class ApplianceChoreViewHolder extends RecyclerView.ViewHolder {
-        private TextView name;
-        private TextView frequency;
+        private TextView nameView;
+        private TextView frequencyView;
 
         ApplianceChoreViewHolder(View itemView) {
             super(itemView);
-            name = (TextView) itemView.findViewById(R.id.name);
-            frequency = (TextView) itemView.findViewById(R.id.frequency);
+            nameView = (TextView) itemView.findViewById(R.id.appliance_chore_name);
+            frequencyView = (TextView) itemView.findViewById(R.id.appliance_chore_frequency);
         }
 
         void bind(ApplianceChore chore) {
-            name.setText(chore.name);
-            frequency.setText(Integer.toString(chore.frequency));
+            nameView.setText(chore.name);
+            frequencyView.setText(Integer.toString(chore.frequency));
         }
     }
 }

@@ -20,51 +20,49 @@ class ApplianceSearchAdapter extends RecyclerView.Adapter {
         void onItemClicked(ApplianceSearchResult data);
     }
 
-    private List<ApplianceSearchResult> mData;
-    private OnItemClickListener mItemClickListener;
+    private List<ApplianceSearchResult> searchResults;
+    private OnItemClickListener clickListener;
 
-    ApplianceSearchAdapter(OnItemClickListener onItemClickListener) {
-        mData = new ArrayList<>();
-        mItemClickListener = onItemClickListener;
+    ApplianceSearchAdapter(OnItemClickListener clickListener) {
+        searchResults = new ArrayList<>();
+        this.clickListener = clickListener;
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.list_item_appliance_search, parent, false);
-        return new ApplianceViewHolder(v, mItemClickListener);
+        return new ApplianceViewHolder(v, clickListener);
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        ((ApplianceViewHolder) holder).bind(mData.get(position));
-    }
-
-    public void setData(List<ApplianceSearchResult> data) {
-        mData = data;
-        notifyDataSetChanged();
+        ((ApplianceViewHolder) holder).bind(searchResults.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return mData.size();
+        return searchResults.size();
+    }
+
+    public void setData(List<ApplianceSearchResult> data) {
+        searchResults = data;
+        notifyDataSetChanged();
     }
 
     private class ApplianceViewHolder extends RecyclerView.ViewHolder {
-        private ApplianceSearchResult mModel;
-        private TextView mTextView;
-        private OnItemClickListener mListener;
+        private ApplianceSearchResult model;
+        private TextView applianceNameView;
 
         ApplianceViewHolder(View itemView, OnItemClickListener listener) {
             super(itemView);
-            mTextView = (TextView) itemView;
-            mListener = listener;
-            mTextView.setOnClickListener(v -> mListener.onItemClicked(mModel));
+            applianceNameView = (TextView) itemView;
+            applianceNameView.setOnClickListener(v -> listener.onItemClicked(model));
         }
 
         void bind(ApplianceSearchResult model) {
-            mModel = model;
-            mTextView.setText(mModel.name);
+            this.model = model;
+            applianceNameView.setText(model.name);
         }
     }
 }

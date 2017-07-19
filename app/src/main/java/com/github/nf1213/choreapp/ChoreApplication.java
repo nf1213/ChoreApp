@@ -7,7 +7,6 @@ import com.github.nf1213.choreapp.ui.chore.ChoreModule;
 /**
  * Created by Nicole Felch on 6/7/17.
  */
-
 public class ChoreApplication extends Application {
     private final ChoreComponent choreComponent = createChoreComponent();
 

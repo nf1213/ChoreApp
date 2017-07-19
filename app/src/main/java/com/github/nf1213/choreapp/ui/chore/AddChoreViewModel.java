@@ -21,14 +21,14 @@ public class AddChoreViewModel extends ViewModel implements ChoreComponent.Injec
     @Inject
     ChoreRepository choreRepository;
 
-    public Completable addChore(Chore chore) {
+    Completable addChore(Chore chore) {
         Calendar c = Calendar.getInstance();
         c.add(Calendar.MINUTE, 1);
         chore.date = c.getTime();
         return choreRepository.addChore(chore);
     }
 
-    public LiveData<Chore> getChore(int id) {
+    LiveData<Chore> getChore(int id) {
         return choreRepository.getChore(id);
     }
 

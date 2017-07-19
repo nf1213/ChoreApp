@@ -31,7 +31,7 @@ public class ApplianceDetailsViewModel extends ViewModel implements ChoreCompone
         choreComponent.inject(this);
     }
 
-    public MutableLiveData<Appliance> getAppliance(int id) {
+    MutableLiveData<Appliance> getAppliance(int id) {
         restService.getAppliance(id).enqueue(new Callback<Appliance>() {
             @Override
             public void onResponse(@NonNull Call<Appliance> call, @NonNull Response<Appliance> response) {

@@ -15,49 +15,49 @@ import java.util.List;
  */
 class ChoreAdapter extends RecyclerView.Adapter {
 
-    private List<Chore> mChoreList;
-    private DeleteListener mDeleteListener;
-    private ClickListener mClickListener;
-    private CheckListener mCheckListenter;
+    interface DeleteListener {
+        void delete(Chore chore);
+    }
 
-    public ChoreAdapter(List<Chore> choreList, ClickListener clickListener, DeleteListener deleteListener, CheckListener checkListenter) {
-        mChoreList = choreList;
-        mDeleteListener = deleteListener;
-        mClickListener = clickListener;
-        mCheckListenter = checkListenter;
+    interface ClickListener {
+        void onClick(int choreId);
+    }
+
+    interface CheckListener {
+        void onCheckChanged(Chore chore, boolean isChecked);
+    }
+
+    private List<Chore> choreList;
+    private DeleteListener deleteListener;
+    private ClickListener clickListener;
+    private CheckListener checkListener;
+
+    ChoreAdapter(List<Chore> choreList, ClickListener clickListener, DeleteListener deleteListener, CheckListener checkListener) {
+        this.choreList = choreList;
+        this.deleteListener = deleteListener;
+        this.clickListener = clickListener;
+        this.checkListener = checkListener;
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.list_item_chore, parent, false);
-        return new ChoreViewHolder(v, mClickListener, mDeleteListener, mCheckListenter);
+        return new ChoreViewHolder(v, clickListener, deleteListener, checkListener);
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        ((ChoreViewHolder) holder).bind(mChoreList.get(position));
+        ((ChoreViewHolder) holder).bind(choreList.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return mChoreList.size();
+        return choreList.size();
     }
 
-    public void setItems(List<Chore> chores) {
-        mChoreList = chores;
+    void setItems(List<Chore> chores) {
+        choreList = chores;
         notifyDataSetChanged();
-    }
-
-    public interface DeleteListener {
-        void delete(Chore chore);
-    }
-
-    public interface ClickListener {
-        void onClick(int choreId);
-    }
-
-    public interface CheckListener {
-        void onCheckChanged(Chore chore, boolean isChecked);
     }
 }
