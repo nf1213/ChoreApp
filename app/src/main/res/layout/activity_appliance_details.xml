@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="8dp">
+
     <fragment
-        android:id="@+id/add_edit_chore"
-        android:name="com.github.nf1213.choreapp.ui.chore.AddEditChoreFragment"
+        android:id="@+id/appliance_details"
+        android:name="com.github.nf1213.choreapp.ui.appliance.ApplianceDetailsFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
 </FrameLayout>

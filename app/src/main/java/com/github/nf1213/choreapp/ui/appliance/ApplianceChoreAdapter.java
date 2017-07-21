@@ -57,7 +57,7 @@ class ApplianceChoreAdapter extends RecyclerView.Adapter {
 
         void bind(ApplianceChore chore) {
             nameView.setText(chore.name);
-            frequencyView.setText(Integer.toString(chore.frequency));
+            frequencyView.setText(itemView.getContext().getString(R.string.frequency_in_days, chore.frequency));
         }
     }
 }

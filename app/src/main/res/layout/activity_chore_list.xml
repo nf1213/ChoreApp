@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.github.nf1213.choreapp.ui.MainActivity">
+    tools:context="com.github.nf1213.choreapp.ui.MainActivity"
+    android:layout_margin="8dp">
 
     <FrameLayout
         android:id="@+id/content"

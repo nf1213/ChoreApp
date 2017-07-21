@@ -24,7 +24,7 @@ class ChoreViewHolder extends RecyclerView.ViewHolder implements View.OnLongClic
     private ChoreAdapter.CheckListener checkListener;
     private Chore chore;
 
-    public ChoreViewHolder(View itemView, ChoreAdapter.ClickListener clickListener, ChoreAdapter.DeleteListener deleteListener, ChoreAdapter.CheckListener checkListener) {
+    ChoreViewHolder(View itemView, ChoreAdapter.ClickListener clickListener, ChoreAdapter.DeleteListener deleteListener, ChoreAdapter.CheckListener checkListener) {
         super(itemView);
         choreNameView = (TextView) itemView.findViewById(R.id.chore_name);
         editButton = (Button) itemView.findViewById(R.id.chore_edit);
@@ -40,7 +40,7 @@ class ChoreViewHolder extends RecyclerView.ViewHolder implements View.OnLongClic
         checkBox.setOnCheckedChangeListener(this);
     }
 
-    public void bind(Chore chore) {
+    void bind(Chore chore) {
         this.chore = chore;
         choreNameView.setText(chore.name);
         if (chore.isChecked) {
@@ -48,7 +48,9 @@ class ChoreViewHolder extends RecyclerView.ViewHolder implements View.OnLongClic
         } else {
             choreNameView.setPaintFlags(choreNameView.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
         }
+        checkBox.setOnCheckedChangeListener(null);
         checkBox.setChecked(chore.isChecked);
+        checkBox.setOnCheckedChangeListener(this);
     }
 
     @Override

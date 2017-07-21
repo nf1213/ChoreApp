@@ -52,7 +52,7 @@ public class ReminderTask extends GcmTaskService {
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        String text = String.format(getString(R.string.notification_message), taskParams.getExtras().getString(EXTRA_CHORE_NAME));
+        String text = getString(R.string.notification_message, taskParams.getExtras().getString(EXTRA_CHORE_NAME));
 
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)

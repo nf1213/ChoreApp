@@ -9,4 +9,7 @@
     <string name="loading">Loading...</string>
     <string name="notification_message" formatted="false">Reminder! %s</string>
     <string name="search">Search</string>
+    <string name="frequency_in_days" formatted="false">Every %d days</string>
+    <string name="add_chore">Add Chore</string>
+    <string name="edit_chore">Edit Chore</string>
 </resources>
